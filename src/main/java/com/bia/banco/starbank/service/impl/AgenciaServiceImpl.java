@@ -55,7 +55,7 @@ public class AgenciaServiceImpl implements AgenciaService {
         for (int i = 0; i < distancias.size(); i++) {
             DistanciaAgenciaDto dto = distancias.get(i);
             String chave = "AGENCIA" + "_" + dto.getAgenciaId();
-            String valor = String.format("distancia=%.2f", dto.getDistancia());
+            String valor = String.format("distancia = %.2f", dto.getDistancia());
             resultado.put(chave, valor);
         }
 

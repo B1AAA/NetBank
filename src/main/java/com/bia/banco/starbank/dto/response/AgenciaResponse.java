@@ -8,6 +8,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AgenciaResponse {
+
     private Long id;
     private Double posX;
     private Double posY;

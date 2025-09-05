@@ -35,7 +35,6 @@ class AgenciaServiceTest {
 
     @Test
     void testCadastrarAgencia() {
-        // Arrange (Preparação)
         AgenciaCadastroDto dto = new AgenciaCadastroDto();
         dto.setPosX(10.0);
         dto.setPosY(-5.0);

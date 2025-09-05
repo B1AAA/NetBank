@@ -2,6 +2,7 @@ package com.bia.banco.starbank.controller;
 
 import com.bia.banco.starbank.dto.AgenciaCadastroDto;
 import com.bia.banco.starbank.dto.response.AgenciaResponse;
+import com.bia.banco.starbank.exception.BadRequestException;
 import com.bia.banco.starbank.service.AgenciaService;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,20 +20,19 @@ public class AgenciaController {
     @Autowired
     private AgenciaService agenciaService;
 
-    /**
-     * Endpoint POST para cadastrar uma nova agência.
-     * Retorna 201 Created com os dados da agência criada.
-     */
+
     @PostMapping("/cadastrar")
     public ResponseEntity<AgenciaResponse> cadastrarAgencia(@RequestBody AgenciaCadastroDto dto) {
+
+        if (dto.getPosX() == null || dto.getPosY() == null) {
+            throw new BadRequestException("Coordenadas 'posX' e 'posY' são obrigatórias e não podem ser nulas.");
+        }
+
+
         AgenciaResponse agenciaCriada = agenciaService.cadastrarAgencia(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(agenciaCriada);
     }
 
-    /**
-     * Endpoint GET para calcular distâncias das agências ao ponto do usuário.
-     * Retorna 200 OK com o Map de distâncias.
-     */
     @GetMapping("/distancia")
     public ResponseEntity<Map<String, String>> calcularDistancias(
             @RequestParam double posX,
