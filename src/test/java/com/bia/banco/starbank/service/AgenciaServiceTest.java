@@ -85,7 +85,6 @@ class AgenciaServiceTest {
         assertTrue(resultado.containsKey("AGENCIA_2"), "Deve conter a chave 'AGENCIA_2'");
         assertTrue(resultado.containsKey("AGENCIA_1"), "Deve conter a chave 'AGENCIA_1'");
 
-
         String primeiraChave = resultado.keySet().iterator().next();
         assertEquals("AGENCIA_2", primeiraChave, "A primeira agência deve ser a mais próxima (ID 2)");
     }
