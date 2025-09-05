@@ -2,6 +2,7 @@ package com.bia.banco.starbank.service.impl;
 
 import com.bia.banco.starbank.dto.AgenciaCadastroDto;
 import com.bia.banco.starbank.dto.DistanciaAgenciaDto;
+import com.bia.banco.starbank.dto.response.AgenciaResponse;
 import com.bia.banco.starbank.model.Agencia;
 import com.bia.banco.starbank.repository.AgenciaRepository;
 import com.bia.banco.starbank.service.AgenciaService;
@@ -20,12 +21,18 @@ public class AgenciaServiceImpl implements AgenciaService {
     private AgenciaRepository agenciaRepository;
 
     @Override
-    public void cadastrarAgencia(AgenciaCadastroDto dto) {
+    public AgenciaResponse cadastrarAgencia(AgenciaCadastroDto dto) {
         Agencia agencia = new Agencia();
         agencia.setPosX(dto.getPosX());
         agencia.setPosY(dto.getPosY());
 
-        agenciaRepository.save(agencia);
+        Agencia agenciaSalva = agenciaRepository.save(agencia);
+
+        return AgenciaResponse.builder()
+                .id(agenciaSalva.getId())
+                .posX(agenciaSalva.getPosX())
+                .posY(agenciaSalva.getPosY())
+                .build();
     }
 
     @Override
@@ -44,10 +51,10 @@ public class AgenciaServiceImpl implements AgenciaService {
                 .collect(Collectors.toList());
 
 
-        Map<String, String> resultado = new LinkedHashMap<>(); // LinkedHashMap mantém a ordem de inserção
+        Map<String, String> resultado = new LinkedHashMap<>();
         for (int i = 0; i < distancias.size(); i++) {
             DistanciaAgenciaDto dto = distancias.get(i);
-            String chave = "AGENCIA " + dto.getAgenciaId();
+            String chave = "AGENCIA" + "_" + dto.getAgenciaId();
             String valor = String.format("distancia=%.2f", dto.getDistancia());
             resultado.put(chave, valor);
         }
