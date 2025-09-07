@@ -48,9 +48,7 @@ class AgenciaServiceTest {
         agenciaSalva.setPositionY(-5.0);
         when(agenciaRepository.save(any(Agencia.class))).thenReturn(agenciaSalva);
 
-
         AgenciaResponse response = agenciaService.cadastrarAgencia(dto);
-
 
         assertNotNull(response);
         assertEquals(1L, response.getId());
@@ -74,12 +72,9 @@ class AgenciaServiceTest {
 
         when(agenciaRepository.findAll()).thenReturn(Arrays.asList(ag1, ag2));
 
-
         Map<String, String> resultado = agenciaService.calcularDistancias(3.0, 4.0);
 
-
         assertEquals(2, resultado.size());
-
 
         assertTrue(resultado.containsKey("AGENCIA_2"));
         assertTrue(resultado.containsKey("AGENCIA_1"));
@@ -91,7 +86,6 @@ class AgenciaServiceTest {
 
         assertEquals(5.0, ag1.getResultado(), 0.01);
         assertEquals(0.0, ag2.getResultado(), 0.01);
-
 
         verify(agenciaRepository, times(1)).saveAll(anyList());
     }
