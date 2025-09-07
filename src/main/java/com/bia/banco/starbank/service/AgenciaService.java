@@ -12,9 +12,7 @@ public interface AgenciaService  {
 
     AgenciaResponse cadastrarAgencia(AgenciaCadastroDto dto);
 
-    Map<String, String> calcularDistancias(double userpositionX
-, double userpositionY
-);
+    Map<String, String> calcularDistancias(double userpositionX, double userpositionY);
 
     void deletarAgencia(Long id);
 }

@@ -31,19 +31,13 @@ public class AgenciaController {
     @Operation(summary = "Consultar distâncias das agências", description = "Retorna um mapa ordenado com a distância de cada agência até o ponto do usuário.")
     @ApiResponse(responseCode = "200", description = "Consulta realizada com sucesso")
     @ApiResponse(responseCode = "400", description = "Coordenadas inválidas")
-    public ResponseEntity<Map<String, String>> calcularDistancias(@Parameter(description = "Coordenada X do usuário", example = "-10.0") @RequestParam double positionX
-,
-                                                                  @Parameter(description = "Coordenada Y do usuário", example = "5.0") @RequestParam double positionY
-) {
+    public ResponseEntity<Map<String, String>> calcularDistancias(@Parameter(description = "Coordenada X do usuário", example = "-10.0") @RequestParam double positionX,
+                                                                  @Parameter(description = "Coordenada Y do usuário", example = "5.0") @RequestParam double positionY) {
 
-        if (Math.abs(positionX
-) > 180 || Math.abs(positionY
-) > 90) {
+        if (Math.abs(positionX) > 180 || Math.abs(positionY) > 90) {
             throw new BadRequestException("Coordenadas inválidas. Longitude deve estar entre -180 e 180, e Latitude entre -90 e 90.");
         }
-        Map<String, String> resultado = agenciaService.calcularDistancias(positionX
-, positionY
-);
+        Map<String, String> resultado = agenciaService.calcularDistancias(positionX, positionY);
         return ResponseEntity.ok(resultado);
     }
 

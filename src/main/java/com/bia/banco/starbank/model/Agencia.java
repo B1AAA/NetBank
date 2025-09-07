@@ -18,12 +18,10 @@ public class Agencia {
     private Long id;
 
     @Column(name = "position_x", nullable = false)
-    private Double positionX
-;
+    private Double positionX;
 
     @Column(name = "position_y", nullable = false)
-    private Double positionY
-;
+    private Double positionY;
 
     @Column(name = "resultado", nullable = true)
     private Double resultado;

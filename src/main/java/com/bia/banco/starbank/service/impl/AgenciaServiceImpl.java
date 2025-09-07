@@ -42,9 +42,7 @@ public class AgenciaServiceImpl implements AgenciaService {
     }
     @Override
     @Transactional
-    public Map<String, String> calcularDistancias(double positionX
-, double positionY
-) {
+    public Map<String, String> calcularDistancias(double positionX, double positionY) {
         List<Agencia> agencias = agenciaRepository.findAll();
 
         List<DistanciaAgenciaDto> distancias = agencias.stream()
