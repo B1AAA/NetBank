@@ -9,6 +9,8 @@ import lombok.*;
 @AllArgsConstructor
 public class AgenciaCadastroDto {
 
-    private Double posX;
-    private Double posY;
+    private Double positionX
+;
+    private Double positionY
+;
 }

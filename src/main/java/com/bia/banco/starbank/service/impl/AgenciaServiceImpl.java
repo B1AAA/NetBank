@@ -29,27 +29,29 @@ public class AgenciaServiceImpl implements AgenciaService {
     @Override
     public AgenciaResponse cadastrarAgencia(AgenciaCadastroDto dto) {
         Agencia agencia = new Agencia();
-        agencia.setPosX(dto.getPosX());
-        agencia.setPosY(dto.getPosY());
+        agencia.setPositionX(dto.getPositionX());
+        agencia.setPositionY(dto.getPositionY());
 
         Agencia agenciaSalva = agenciaRepository.save(agencia);
 
         return AgenciaResponse.builder()
                 .id(agenciaSalva.getId())
-                .posX(agenciaSalva.getPosX())
-                .posY(agenciaSalva.getPosY())
+                .positionX(agenciaSalva.getPositionX())
+                .positionY(agenciaSalva.getPositionY())
                 .build();
     }
     @Override
     @Transactional
-    public Map<String, String> calcularDistancias(double posX, double posY) {
+    public Map<String, String> calcularDistancias(double positionX
+, double positionY
+) {
         List<Agencia> agencias = agenciaRepository.findAll();
 
         List<DistanciaAgenciaDto> distancias = agencias.stream()
                 .map(agencia -> {
                     double distancia = calcularDistanciaEuclidiana(
-                            posX, posY,
-                            agencia.getPosX(), agencia.getPosY()
+                            positionX, positionY,
+                            agencia.getPositionX(), agencia.getPositionY()
                     );
 
                     agencia.setResultado(distancia);

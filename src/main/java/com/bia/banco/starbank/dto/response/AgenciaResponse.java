@@ -10,6 +10,7 @@ import lombok.*;
 public class AgenciaResponse {
 
     private Long id;
-    private Double posX;
-    private Double posY;
+    private Double positionX;
+    private Double positionY
+;
 }

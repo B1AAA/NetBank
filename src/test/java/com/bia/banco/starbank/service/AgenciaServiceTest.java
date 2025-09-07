@@ -39,13 +39,13 @@ class AgenciaServiceTest {
     void testCadastrarAgencia_ComDadosValidos_RetornaAgenciaResponse() {
 
         AgenciaCadastroDto dto = new AgenciaCadastroDto();
-        dto.setPosX(10.0);
-        dto.setPosY(-5.0);
+        dto.setPositionX(10.0);
+        dto.setPositionY(-5.0);
 
         Agencia agenciaSalva = new Agencia();
         agenciaSalva.setId(1L);
-        agenciaSalva.setPosX(10.0);
-        agenciaSalva.setPosY(-5.0);
+        agenciaSalva.setPositionX(10.0);
+        agenciaSalva.setPositionY(-5.0);
         when(agenciaRepository.save(any(Agencia.class))).thenReturn(agenciaSalva);
 
 
@@ -54,8 +54,8 @@ class AgenciaServiceTest {
 
         assertNotNull(response);
         assertEquals(1L, response.getId());
-        assertEquals(10.0, response.getPosX());
-        assertEquals(-5.0, response.getPosY());
+        assertEquals(10.0, response.getPositionX());
+        assertEquals(-5.0, response.getPositionY());
         verify(agenciaRepository, times(1)).save(any(Agencia.class));
     }
 
@@ -64,13 +64,13 @@ class AgenciaServiceTest {
 
         Agencia ag1 = new Agencia();
         ag1.setId(1L);
-        ag1.setPosX(0.0);
-        ag1.setPosY(0.0);
+        ag1.setPositionX(0.0);
+        ag1.setPositionY(0.0);
 
         Agencia ag2 = new Agencia();
         ag2.setId(2L);
-        ag2.setPosX(3.0);
-        ag2.setPosY(4.0);
+        ag2.setPositionX(3.0);
+        ag2.setPositionY(4.0);
 
         when(agenciaRepository.findAll()).thenReturn(Arrays.asList(ag1, ag2));
 
@@ -117,5 +117,18 @@ class AgenciaServiceTest {
 
         assertEquals("Agência com ID 999 não encontrada.", exception.getMessage());
         verify(agenciaRepository, never()).deleteById(id);
+    }
+
+    @Test
+    void testDeletarAgencia_AgenciaInexistente_LancaResourceNotFoundException() {
+        Long idInexistente = 999L;
+        when(agenciaRepository.existsById(idInexistente)).thenReturn(false);
+
+        ResourceNotFoundException exception = assertThrows(ResourceNotFoundException.class, () -> {
+            agenciaService.deletarAgencia(idInexistente);
+        });
+
+        assertEquals("Agência com ID 999 não encontrada.", exception.getMessage());
+        verify(agenciaRepository, never()).deleteById(idInexistente);
     }
 }

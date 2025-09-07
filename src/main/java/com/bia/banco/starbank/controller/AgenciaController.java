@@ -31,13 +31,19 @@ public class AgenciaController {
     @Operation(summary = "Consultar distâncias das agências", description = "Retorna um mapa ordenado com a distância de cada agência até o ponto do usuário.")
     @ApiResponse(responseCode = "200", description = "Consulta realizada com sucesso")
     @ApiResponse(responseCode = "400", description = "Coordenadas inválidas")
-    public ResponseEntity<Map<String, String>> calcularDistancias(@Parameter(description = "Coordenada X do usuário", example = "-10.0") @RequestParam double posX,
-                                                                  @Parameter(description = "Coordenada Y do usuário", example = "5.0") @RequestParam double posY) {
+    public ResponseEntity<Map<String, String>> calcularDistancias(@Parameter(description = "Coordenada X do usuário", example = "-10.0") @RequestParam double positionX
+,
+                                                                  @Parameter(description = "Coordenada Y do usuário", example = "5.0") @RequestParam double positionY
+) {
 
-        if (Math.abs(posX) > 180 || Math.abs(posY) > 90) {
+        if (Math.abs(positionX
+) > 180 || Math.abs(positionY
+) > 90) {
             throw new BadRequestException("Coordenadas inválidas. Longitude deve estar entre -180 e 180, e Latitude entre -90 e 90.");
         }
-        Map<String, String> resultado = agenciaService.calcularDistancias(posX, posY);
+        Map<String, String> resultado = agenciaService.calcularDistancias(positionX
+, positionY
+);
         return ResponseEntity.ok(resultado);
     }
 
@@ -47,8 +53,8 @@ public class AgenciaController {
     @ApiResponse(responseCode = "400", description = "Dados inválidos")
     public ResponseEntity<AgenciaResponse> cadastrarAgencia(@RequestBody AgenciaCadastroDto dto) {
 
-        if (dto.getPosX() == null || dto.getPosY() == null) {
-            throw new BadRequestException("Coordenadas 'posX' e 'posY' são obrigatórias e não podem ser nulas.");
+        if (dto.getPositionX() == null || dto.getPositionY() == null) {
+            throw new BadRequestException("Coordenadas 'positionX ' e 'positionY ' são obrigatórias e não podem ser nulas.");
         }
         AgenciaResponse agenciaCriada = agenciaService.cadastrarAgencia(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(agenciaCriada);

@@ -17,11 +17,13 @@ public class Agencia {
     @Column(name = "id", nullable = false, updatable = false)
     private Long id;
 
-    @Column(name = "pos_x", nullable = false)
-    private Double posX;
+    @Column(name = "position_x", nullable = false)
+    private Double positionX
+;
 
-    @Column(name = "pos_y", nullable = false)
-    private Double posY;
+    @Column(name = "position_y", nullable = false)
+    private Double positionY
+;
 
     @Column(name = "resultado", nullable = true)
     private Double resultado;
