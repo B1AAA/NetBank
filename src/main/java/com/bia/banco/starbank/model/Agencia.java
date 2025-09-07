@@ -22,4 +22,7 @@ public class Agencia {
 
     @Column(name = "pos_y", nullable = false)
     private Double posY;
+
+    @Column(name = "resultado", nullable = true)
+    private Double resultado;
 }
